@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   backend:
     build: ./backend
@@ -7,6 +5,10 @@ services:
       - "5000:5000"
     depends_on:
       - mongo
+    networks:
+      - backend-network
+      - frontend-network  # Connects backend to frontend
+
     environment:
       - PORT=5000
       - MONGO_URI=mongodb://mongo:27017/studentdb
@@ -17,14 +19,26 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+    networks:
+      - frontend-network  # Separate network for frontend-backend communication
 
   mongo:
     image: mongo
+    restart: always
     ports:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - backend-network  # Separate network for backend-database communication
 
 volumes:
-  mongo-data:
-  driver: local
+  mongo-data:  # Define persistent volume for MongoDB
+      driver: local
+
+networks:
+  frontend-network:  # Separate network for frontend-backend communication
+            driver: bridge
+
+  backend-network:  # Separate network for backend-database communication
+           driver: bridge
