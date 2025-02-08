@@ -1,19 +1,19 @@
 ## Step 1: Clone & Navigate to the Project
 
-``sh 
+```sh 
 git clone https://github.com/stv707/docker-build
 cd docker-build
 
 
-``
+```
 
 ## Step 2: Build and Start Containers
 
-``sh 
+```sh 
 
 docker-compose up -d --build 
 
-``
+```
 
 ## Step 3: Open the Application
 - Frontend: Open http://localhost:3000
