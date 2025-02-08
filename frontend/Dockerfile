@@ -8,11 +8,12 @@ WORKDIR /app
 COPY package.json ./
 RUN npm install
 
-# Copy application files
+# Copy application files (Ensure `public` is included)
 COPY . .
 
-# Expose port
+# Expose the port React runs on
 EXPOSE 3000
 
-# Start React app
+# Start the React app
 CMD ["npm", "start"]
+
